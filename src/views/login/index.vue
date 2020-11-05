@@ -3,7 +3,7 @@
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">餐饮预约管理系统</h3>
       </div>
 
       <el-form-item prop="username">
@@ -73,9 +73,10 @@ export default {
       }
     }
     return {
+      //这里是要提交的数据
       loginForm: {
         username: 'admin',
-        password: '111111'
+        password: '123321'
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -109,6 +110,7 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
+          //这个数据是交给vuex/user/login
           this.$store.dispatch('user/login', this.loginForm).then(() => {
             this.$router.push({ path: this.redirect || '/' })
             this.loading = false

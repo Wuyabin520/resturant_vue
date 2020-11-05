@@ -32,8 +32,10 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      //发送数据到接口的方法，借助login方法去发送的
+      login({ username: username.trim(), password: password ,type:'manager'}).then(response => {
         const { data } = response
+        //这里会保存我们登陆后的token
         commit('SET_TOKEN', data.token)
         setToken(data.token)
         resolve()
@@ -56,7 +58,7 @@ const actions = {
         const { name, avatar } = data
 
         commit('SET_NAME', name)
-        commit('SET_AVATAR', avatar)
+        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
         resolve(data)
       }).catch(error => {
         reject(error)

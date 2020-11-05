@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <h3>员工管理</h3>
     <el-table
       v-loading="listLoading"
       :data="list"
@@ -40,40 +41,31 @@
         </template>
       </el-table-column>
     </el-table>
+    <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="fetchData" />
+
   </div>
 </template>
 
 <script>
-import { getList } from '@/api/table'
-
+import Pagination from '@/components/Pagination'
+import {mapActions, mapState} from 'vuex'
 export default {
-  filters: {
-    statusFilter(status) {
-      const statusMap = {
-        published: 'success',
-        draft: 'gray',
-        deleted: 'danger'
-      }
-      return statusMap[status]
-    }
-  },
   data() {
     return {
-      list: null,
-      listLoading: true
+      listLoading: false
     }
+  },
+  components:{
+    Pagination
+  },
+  computed:{
+    ...mapState('waiters',['list','total','listQuery'])
   },
   created() {
     this.fetchData()
   },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      getList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
-    }
+    ...mapActions('waiters',['fetchData'])
   }
 }
 </script>

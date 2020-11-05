@@ -13,10 +13,10 @@ English | [简体中文](./README-zh.md)
 
 ```bash
 # clone the project
-git clone https://github.com/PanJiaChen/vue-admin-template.git
+git clone https://gitee.com/wu_yabin/restaurant-reservation.git
 
 # enter the project directory
-cd vue-admin-template
+cd resturant
 
 # install dependency
 npm install
